@@ -164,15 +164,12 @@ rm -r Rayrolling.xcplugin/
 <p>启动Xcode插件。在子Xcode中，打开任何工程。确保已经激活通知——在Xcode设置里，激活他们，无论是编译成功和失败。再一次，确保你在更改的是子Xcode的设置。<br><img src="http://cdn1.raywenderlich.com/wp-content/uploads/2015/05/rayroll-bezel.png" alt=""></p>
 <p>使用被创建的<strong>Reset Logger</strong>菜单项重置<strong>notificationSet</strong>，并运行子Xcode工程。</p>
 <p>在子Xcode编译成功（或者失败）是，注意控制台里的信息。略读控制台信息，看看是否相关的内容。你是否能进一步瞧出值得查看的通知项？以下的方案可能会给你一点帮助。</p>
-<pre><code>内附方案:通过通知捕捉
-有几项值得我们进一步观察：
-</code></pre><blockquote>
+<p>内附方案:通过通知捕捉<br>有几项值得我们进一步观察：</p>
 <ul>
 <li>NSWindowWillOrderOffScreenNotification,DVTBezelAlertPanel</li>
 <li>NSWindowDidOrderOffScreenNotification,DVTBezelAlertPanel</li>
 <li>NSWindowDidOrderOffScreenAndFinishAnimatingNotification,DVTBezelAlertPanel</li>
 </ul>
-</blockquote>
 <p><img src="http://cdn5.raywenderlich.com/wp-content/uploads/2015/02/XcodeNotificationListeningSourceKitCrash.png" alt=""></p>
 <p>你可以从中选出一条，并且进一步探索它，看看能挖出什么信息。<br>那么<strong>NSWindowWillOrderOffScreenNotification</strong>怎么样？好主意！探索一下它。<br>仍旧是<strong>Rayrolled.m</strong>，找到<strong>handleNotification:</strong>，并且在第一行增加断点，如图所示，之后的几步如下：<br><img src="http://cdn3.raywenderlich.com/wp-content/uploads/2015/04/Xcode_Add_Symbolic_Breakpoint.png" alt=""></p>
 <ol>
