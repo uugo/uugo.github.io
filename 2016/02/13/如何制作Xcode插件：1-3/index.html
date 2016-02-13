@@ -141,10 +141,8 @@
 <p>插件被标定在特定版本的Xcode中运行，意味着当新版本的Xcode出现，所有的社区制作的第三方插件都会失效，直到添加该版本特定的UUID。如果个别模板无法正常工作，并且也看不到新菜单项，可能添加对该版本Xcode的支持。<br>在<strong>终端</strong>中运行如下命令：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults <span class="keyword">read</span> <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/I</span>nfo DVTPlugInCompatibilityUUID</span><br></pre></td></tr></table></figure>
 <p>这条命令会输出你目前所使用的Xcode的UUID。打开插件的<strong>Info.plist</strong>，并找到键名<strong>DVTPlugInCompatibilityUUID</strong>，将值添加到该数组中：<br><img src="http://cdn1.raywenderlich.com/wp-content/uploads/2015/05/DVTCompatibilityUUIDs.gif" alt=""></p>
-<blockquote>
-<p><strong>注意：</strong>整片教程中，你将运行和修改已安装的插件。这将会改变Xcode的行为，并且有可能会是Xcode崩溃！如果你想禁用一个插件，你需要手动使用如下命令移除它：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">~/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins/</span><br><span class="line">rm -r Rayrolling.xcplugin/</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
+<p>  <strong>注意：</strong>整片教程中，你将运行和修改已安装的插件。这将会改变Xcode的行为，并且有可能会是Xcode崩溃！如果你想禁用一个插件，你需要手动使用如下命令移除它：</p>
+<p>  cd ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/<br>  rm -r Rayrolling.xcplugin/</p>
 <p>然后重启Xcode。</p>
 <h2 id="查找可修改的特性">查找可修改的特性</h2><p>想获取后台将会发生什么，一个基本的尝试和正确的方式是通过<em>NSNotification observer</em>，它监听着所有Xcode发生的事件。通过使用Xcode和监视这些被触发的通知，你将能够一窥底层的一些东西。</p>
 <p>打开<strong>Rayrolling.m</strong>，并将下面的属性添加到这个类中</p>
@@ -177,35 +175,24 @@
 </ol>
 <p>现在开了一好头，你知道一个名为<strong>DVTBezelAlertPanel</strong>的类，并且更重要的是，你有这个类在内存中的实体。而不幸的是，你没有它的头文件，来确定这个实体是否负责显示Xcode的提示。</p>
 <p>事实上，获得这个信息是可能的。尽管你没有这个类的头文件，但你的确连接到子Xcode的调试器，并且头文件能告诉你的，内存同样也可以告诉你。</p>
-<blockquote>
-<p><strong>注意：</strong>对于这套教程，LLDB控制台的输出经常会包括控制台输入。以<strong>(lldb)</strong>开头的行可认为是控制台输入，并且也可以输入。三点…符号输出已从控制台的标准输出里忽略掉了。如果控制台中的巨量信息让你招架不住，按<strong>⌘ + K</strong>可以移除当前的内容，可回归到开始的清爽界面。</p>
-</blockquote>
+<p>  <strong>注意：</strong>对于这套教程，LLDB控制台的输出经常会包括控制台输入。以<strong>(lldb)</strong>开头的行可认为是控制台输入，并且也可以输入。三点…符号输出已从控制台的标准输出里忽略掉了。如果控制台中的巨量信息让你招架不住，按<strong>⌘ + K</strong>可以移除当前的内容，可回归到开始的清爽界面。</p>
 <p>当父Xcode调试器在断点处停止时，在它的LLDB控制台输入以下命令：</p>
-<blockquote>
-<p>(lldb) image lookup -rn DVTBezelAlertPanel<br>17 matches found in /Application/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/A/DVTKit:…</p>
-</blockquote>
+<p>  (lldb) image lookup -rn DVTBezelAlertPanel<br>  17 matches found in /Application/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/A/DVTKit:…</p>
 <p>在Xcode内对<strong>DVTBezelAlertPanel</strong>的搜索，同样会在Xcode进程载入的框架、库和插件里搜索，并且会输出匹配的内容。看一下函数列表。在<strong>DVTBezelAlertPanel</strong>图片转储过程中是否有函数将这个类和错误信息联系起来？下面的帮助可供参考。</p>
-<blockquote>
-<p>解决方案：相关函数<br><strong>DVTBezelAlertPanel</strong>相关函数看起来可以做进一步研究：</p>
-<blockquote>
+<p>  解决方案：相关函数<br>  <strong>DVTBezelAlertPanel</strong>相关函数看起来可以做进一步研究：</p>
 <ul>
 <li><strong>initWithIcon:message:parentWindow:duration</strong></li>
 <li><strong>initWithIcon:message:controlView:duration:</strong></li>
-<li><strong>controlView</strong><br>也许跳出上面两个初始化函数中的一个可以验证你是否跟踪到正确的提示框信息相关的类。</li>
-</ul>
-</blockquote>
+<li><p><strong>controlView</strong></p>
+<p>也许跳出上面两个初始化函数中的一个可以验证你是否跟踪到正确的提示框信息相关的类。</p>
 <p><strong>注意：</strong>要知道<strong>image lookup</strong>的LLDB命令将列出内存中被执行的方法。当将此操作应用到一个特别的类上时，会忽略掉该类从其父类继承的方法。也就是说，该命令的搜索将忽略掉任何只在父类声明的方法，这些方法也不包括子类重载其父类的方法。</p>
-</blockquote>
 <p>LLDB控制台无输出时，以如下命令查看<strong>contentView</strong>属性：</p>
-<blockquote>
-<p>(lldb) po [notification.object controlView]</p>
-<p>&lt;nil&gt;</p>
-</blockquote>
+<p>(lldb) po [notification.object controlView]<br>&lt;nil&gt;</p>
+</li>
+</ul>
 <p>控制台返回<strong>nil</strong>。讨厌。也许是因为<strong>controlView</strong>此时没有被赋值。是时候采取不同的策略了。<br><strong>initWithIcon:message:parentWindow:duration</strong>和<strong>initWithIcon:message:controlView:duration:</strong>看似有点<del>多汁</del>。因为你知道<strong>DVTBezelAlertPanel</strong>实体目前还在，所以一定是这两个傻呆呆的方法中的一个执行过。你需要通过LLDB控制台在这两个函数处设个断点，然后再次出发这个类的初始化。</p>
 <p>在程序暂停时，在LLDB控制台中输入以下命令：</p>
-<blockquote>
-<p>(lldb) rb ‘DVTBezelAlertPanel\ initWithIcon:message:’<br>Breakpoint 1: 2 locations.<br>(lldb) br l<br>…</p>
-</blockquote>
+<p>  (lldb) rb ‘DVTBezelAlertPanel\ initWithIcon:message:’<br>  Breakpoint 1: 2 locations.<br>  (lldb) br l<br>  …</p>
 <p>这是一个正则表达式，它可以在上面的两句<strong>DVTBezelAlertPanel</strong>初始化处均设置上断点。因为两个初始化方法文字有相同的部分，这个表达式对他们都能匹配。确保在空格前有个“\”，并且命令被单引号包括，这样LLDB才知道如何正确的解析此表达式。</p>
 <p>恢复子程序的运行，然后重新编译子工程。编译器的断点将在<strong>initWithIcon:message:parentWindow:duration</strong>处停止。<br>如果没有停住，确保父Xcode增加了断点，且子Xcode执行了工程。由于断点处的方法没有对应的源码文件，所以Xcode会在该函数的汇编码中暂停。</p>
 <p>由于你找到的函数没有源码文件，那么你需要开动脑筋想办法打印出传入该方法的参数。所以，我们是时候讨论一下<strong>汇编</strong>了！<br><img src="http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/AssemblyRage.png" alt=""></p>
@@ -226,9 +213,7 @@
 <li><p><strong>$rax:</strong>返回值被存入该寄存器。例如，当跳出<strong>-[aClass description]</strong>，在<strong>$rax</strong>里会有一个<strong>NSString</strong>类型的关于<strong>aClass</strong>实体的描述。</p>
 </li>
 </ul>
-<blockquote>
-<p><strong>注意：</strong>上面的讲述在一些情况下是不对的。有时二进制会针对不同的函数参数类型使用不同的寄存器，比如<strong>doubles</strong>则使用<strong>$xmm</strong>寄存器。所以，以上仅可作为参考。</p>
-</blockquote>
+<p>  <strong>注意：</strong>上面的讲述在一些情况下是不对的。有时二进制会针对不同的函数参数类型使用不同的寄存器，比如<strong>doubles</strong>则使用<strong>$xmm</strong>寄存器。所以，以上仅可作为参考。</p>
 <p>将这些理论实践一下，看看下面这个函数。</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">aClass</span> : <span class="title">NSObject</span></span></span><br><span class="line">-(<span class="built_in">NSString</span> *)aMethodWithMessage:(<span class="built_in">NSString</span> *)message；</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">aClass</span></span></span><br><span class="line">-(<span class="built_in">NSString</span> *)aMethodWithMessage:(<span class="built_in">NSString</span> *)message &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Hey the message is: %@"</span>,message]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p>这样调用：</p>
@@ -237,30 +222,11 @@
 <figure class="highlight"><figcaption><span>@selector(aMethodWithMessage:), @"Hello World")```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;**aClass**&#23454;&#20307;&#30340;**aMethodWithMessage:**&#20989;&#25968;&#20250;&#23558;&#22914;&#19979;&#32467;&#26524;&#20889;&#20837;&#36825;&#19968;&#31995;&#21015;&#30340;&#23492;&#23384;&#22120;&#10;**&#19968;&#26086;&#35843;&#29992;aMethodWithMessage:**&#10;* **$rdi:**&#23384;&#20648;&#19968;&#20010;**aClass**&#23454;&#20307;&#12290;&#10;* **$rsi:**&#23384;&#20648;&#20102;&#36873;&#25321;&#22120;**aMethodWithMessage**&#65292;&#23427;&#20854;&#23454;&#26159;&#20010;**char ***&#65288;&#22312;lldb&#20013;&#35797;&#19968;&#19979;**po (SEL)$rsi**&#65289;&#10;* **$rdx:**&#23384;&#20648;&#20102;**message**&#20869;&#23481;&#65292;&#23427;&#24341;&#29992;&#20102;**@&#34;Hello World&#34;&#30340;&#23454;&#20307;&#12290;&#10;**&#31163;&#24320;&#20989;&#25968;&#26102;**&#10;* **$rax:**&#23384;&#20648;&#36820;&#22238;&#20540;&#65292;&#23427;&#26159;&#19968;&#20010;**NSString**&#23454;&#20307;&#12290;&#22312;&#36825;&#20010;&#20363;&#23376;&#20013;&#65292;&#23427;&#26159;@&#34;Hey the message is:Hello World&#34;&#30340;&#23454;&#20307;&#12290;&#10;&#62; &#35793;&#32773;&#27880;&#65306;&#26412;&#25991;&#20027;&#26696;&#20363;&#26368;&#26032;&#26029;&#28857;&#22788;&#22914;&#26524;&#36755;&#20837;&#10;&#62; po $rcx&#10;&#62; &#23558;&#20250;&#30475;&#21040; Build Succeeded&#10;&#10;## &#28145;&#20837;x86&#23492;&#23384;&#22120;&#26242;&#20648;&#26426;&#21046;&#10;&#10;&#26082;&#28982;&#20320;&#24050;&#26159;&#19968;&#21517;&#19987;&#19994;&#30340;&#27719;&#32534;&#23492;&#23384;&#22120;&#21521;&#23548;&#65292;&#37027;&#20040;&#29616;&#22312;&#37325;&#26032;&#35775;&#38382;**DVTBezelAlertPanel**&#30340;**initWithIcon:message:parentWindow:duration:**&#12290;&#24076;&#26395;&#20320;&#36824;&#27809;&#20174;&#36825;&#20010;&#20989;&#25968;&#30340;&#26029;&#28857;&#19978;&#31227;&#24320;&#12290;&#22914;&#26524;&#20320;&#36825;&#20040;&#20570;&#20102;&#65292;&#37027;&#20040;&#37325;&#26032;&#36816;&#34892;&#23376;Xcode&#12290;&#20877;&#27425;&#25552;&#37266;&#65292;&#20320;&#27491;&#22312;&#23547;&#25214;&#19968;&#20010;&#31867;&#30340;&#32447;&#32034;&#65292;&#23427;&#36127;&#36131;&#20026;&#26174;&#31034;Xcode&#32534;&#35793;&#25104;&#21151;&#25552;&#31034;&#12290;&#10;&#10;&#22312;&#26029;&#28857;**initWithIcon:message:parentWindow:duration**&#22788;&#20572;&#27490;&#21518;&#65292;&#22312;LLDB&#36755;&#20837;&#22914;&#19979;&#65306;&#10;&#10;```(lldb) re re</span><br></pre></td></tr></table></figure>
 <p>这条命令是<strong>读寄存器(register read)</strong>的缩写，将打印出机器中一些可用的很重要的寄存器。</p>
 <p>用你已经学到的读0x86_64寄存器知识，检查参数<strong>message:</strong>所属的寄存器，和第四个objc_msgSend参数。内容是否与提示字符串相符？</p>
-<blockquote>
-<p>方法如下：</p>
-<p>是的，查看<strong>$rcx</strong>寄存器，可以看到与编译提示对应的<strong>message</strong>参数。</p>
-<p>在<strong>LLDB控制台</strong>输入如下，进一步探索：</p>
-<blockquote>
-<p>(lldb) po $rcx</p>
-<p>Build Failed</p>
-<blockquote>
-<p><strong>注意：</strong>Xcode会打印出<strong>AT&amp;T</strong>风格的汇编。充分了解当前的风格，因为源操作对象和目的操作对象会被交换。</p>
-</blockquote>
-</blockquote>
-<p>看，这就是“元凶”。</p>
-</blockquote>
+<p>  方法如下：<br>  是的，查看<strong>$rcx</strong>寄存器，可以看到与编译提示对应的<strong>message</strong>参数。<br>  在<strong>LLDB控制台</strong>输入如下，进一步探索：</p>
+<p>  (lldb) po $rcx<br>  Build Failed</p>
+<p>  <strong>注意：</strong>Xcode会打印出<strong>AT&amp;T</strong>风格的汇编。充分了解当前的风格，因为源操作对象和目的操作对象会被交换。<br>  看，这就是“元凶”。</p>
 <p>给参数<strong>$rcx</strong>寄存器写入一个新字符串，看看提示框是否改变就可以100%确定了：</p>
-<blockquote>
-<p>(lldb) po [$rcx class]</p>
-<p>__NSCFConstantString               </p>
-<p>(lldb) po id $a = @”Womp womp!”;</p>
-<p>(lldb) p/x $a</p>
-<p>(id) $a = 0x000061800203faa0</p>
-<p>(lldb) re w $rcx 0x000061800203faa0</p>
-<p>(lldb) c</p>
-</blockquote>
-<p>﻿</p>
+<p>  (lldb) po [$rcx class]<br>  __NSCFConstantString<br>  (lldb) po id $a = @”Womp womp!”;<br>  (lldb) p/x $a<br>  (id) $a = 0x000061800203faa0<br>  (lldb) re w $rcx 0x000061800203faa0<br>  (lldb) c</p>
 <p><img src="http://cdn4.raywenderlich.com/wp-content/uploads/2015/04/Womp_Womp_Xcode.png" alt=""></p>
 <p>程序恢复运行，注意调试器的提示信息已经改变。现在你可以安全的推断出这个类与编译提示相关联了。已经初露端倪，对不对？</p>
 <h2 id="代码注入">代码注入</h2><p>你已经找到了相关的类。现在可以在编译提示显示时，通过代码注入将参数<strong>DVTBezelAlertPanel</strong>的提示图片替换为一张Rayrolling的萌照。</p>
