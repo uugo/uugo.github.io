@@ -3,17 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>如何制作Xcode插件：1/3 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="如何制作Xcode插件：1/3译者注：在学习写xcode插件的过程中，找了一些资料，其中www.raywenderlich.com中的三篇文章写得很好，这是其中的第一篇《How To Create an Xcode Plugin:Part1/3 》。
+
+更新备注：这篇教程只用Xcode6.3.2测试过——如果你使用的其他版本的Xcode，那么你的经历可能会与这篇教程中的有一定出入。
+苹果公司针对扩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何制作Xcode插件：1/3">
+<meta property="og:url" content="http://yoursite.com/2016/02/13/如何制作Xcode插件：1-3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
+<meta property="og:description" content="如何制作Xcode插件：1/3译者注：在学习写xcode插件的过程中，找了一些资料，其中www.raywenderlich.com中的三篇文章写得很好，这是其中的第一篇《How To Create an Xcode Plugin:Part1/3 》。
+
+更新备注：这篇教程只用Xcode6.3.2测试过——如果你使用的其他版本的Xcode，那么你的经历可能会与这篇教程中的有一定出入。
+苹果公司针对扩">
+<meta property="og:image" content="http://cdn4.raywenderlich.com/wp-content/uploads/2015/04/Xcode_Swizzle_DispalAlert.png">
+<meta property="og:image" content="http://cdn4.raywenderlich.com/wp-content/uploads/2015/05/Plugin_Swizzled_Titlebar.png">
+<meta property="og:image" content="http://cdn2.raywenderlich.com/wp-content/uploads/2015/04/Plugin_Swizzle_Documentation-700x288.png">
+<meta property="og:image" content="http://cdn5.raywenderlich.com/wp-content/uploads/2015/05/Xcode6.3.2.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description">
+<meta name="twitter:title" content="如何制作Xcode插件：1/3">
+<meta name="twitter:description" content="如何制作Xcode插件：1/3译者注：在学习写xcode插件的过程中，找了一些资料，其中www.raywenderlich.com中的三篇文章写得很好，这是其中的第一篇《How To Create an Xcode Plugin:Part1/3 》。
+
+更新备注：这篇教程只用Xcode6.3.2测试过——如果你使用的其他版本的Xcode，那么你的经历可能会与这篇教程中的有一定出入。
+苹果公司针对扩">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,9 +72,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-如何制作Xcode插件：1-3" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-如何制作Xcode插件：1-3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/02/13/如何制作Xcode插件：1-3/" class="article-date">
   <time datetime="2016-02-13T06:38:13.000Z" itemprop="datePublished">2016-02-13</time>
@@ -74,8 +85,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/13/如何制作Xcode插件：1-3/">如何制作Xcode插件：1/3</a>
+    <h1 class="article-title" itemprop="name">
+      如何制作Xcode插件：1/3
     </h1>
   
 
@@ -218,56 +229,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/04/hello-world/" class="article-date">
-  <time datetime="2015-06-04T14:56:15.000Z" itemprop="datePublished">2015-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/04/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2015/06/04/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/06/04/hello-world/" data-id="cikkrqzmx0000zp050guveutc" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">
