@@ -230,10 +230,7 @@ rm -r Rayrolling.xcplugin/
 <li><strong>$rsi:</strong>存储了选择器<strong>aMethodWithMessage</strong>，它其实是个char *（在lldb中试一下<strong>po (SEL)$rsi</strong>）</li>
 <li><strong>$rdx:</strong>存储了<strong>message</strong>内容，它引用了<strong>@”Hello World”的实体。
 </strong>离开函数时**</li>
-<li><strong>$rax:</strong>存储返回值，它是一个<strong>NSString</strong>实体。在这个例子中，它是@”Hey the message is:Hello World”的实体。<blockquote>
-<p>译者注：本文主案例最新断点处如果输入<br>po $rcx<br>将会看到 Build Succeeded</p>
-</blockquote>
-</li>
+<li><strong>$rax:</strong>存储返回值，它是一个<strong>NSString</strong>实体。在这个例子中，它是@”Hey the message is:Hello World”的实体。</li>
 </ul>
 <h2 id="深入x86寄存器暂储机制">深入x86寄存器暂储机制</h2><p>既然你已是一名专业的汇编寄存器向导，那么现在重新访问<strong>DVTBezelAlertPanel</strong>的<strong>initWithIcon:message:parentWindow:duration:</strong>。希望你还没从这个函数的断点上移开。如果你这么做了，那么重新运行子Xcode。再次提醒，你正在寻找一个类的线索，它负责为显示Xcode编译成功提示。</p>
 <p>在断点<strong>initWithIcon:message:parentWindow:duration</strong>处停止后，在LLDB输入如下：</p>
