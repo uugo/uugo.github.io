@@ -114,6 +114,7 @@
 <p>在这史诗般的三篇教程中，你将制作一款Xcode插件来恶搞你的搭档，而主演恶搞者的人没有一人比他更爱恶作剧——Ray本人。虽然这些插件看似轻松搞笑，但是你仍然可以从中学习到许多通过Xcode跟踪，如何找到你想要修改的元素，以及如何swizzle进你自己的函数。</p>
 <p>你将会查阅一些未公开的框架，会用到如下技术：<a href="https://www.mikeash.com/pyblog/friday-qa-2011-12-16-disassembling-the-assembly-part-1.html" target="_blank" rel="external">X86汇编知识</a>，<a href="http://www.raywenderlich.com/79600/navigating-a-new-codebase" target="_blank" rel="external">源码的导航技巧</a>和在探索私有API和用<a href="http://nshipster.com/method-swizzling/" target="_blank" rel="external">method swizzling</a>做代码注入的<a href="http://www.raywenderlich.com/?s=lldb" target="_blank" rel="external">LLDB技术</a> 。由于会涉及到的方方面面较多，所以这篇教程会进行的较快。那么，在开始之前确保你的iOS或OS X平台在最佳状态吧！</p>
 <p>使用Swift进行插件开发会严重复杂化这个原本就已经很棘手的题目，况且Swift调试工具相较于Objectvie-C的仍然有所不足。所以现在，(在这篇教程中)开发插件最好的选择是Objective-C。</p>
+<a id="more"></a>
 <hr>
 <h2 id="开始">开始</h2><p>为了庆祝“恶搞搭档日”，你的Xcode插件将“瑞克摇摆”为你的牺牲者。稍等，什么是“瑞克摇摆”？它是免费版本的<a href="https://en.wikipedia.org/wiki/Rickrolling" target="_blank" rel="external">“瑞克摇摆”</a>的版权和版税，就是将牺牲者替换到大家原本预期会出现的内容里。当你完成后，插件将Xcode变成下面的样子：</p>
 <ol>
@@ -131,7 +132,7 @@
 <p>脚本执行完成后，重启Xcode。会看到Alcatraz bundle的如下提示框；点击<strong>Load Bundle</strong>。你一定想要更强力的Xcode，对不对？<br><img src="http://cdn5.raywenderlich.com/wp-content/uploads/2015/05/Xcode6.3.2.png" alt=""></p>
 <pre><code>**注意**：如果你不小心点击了“Skip Bundle”，可以通过在终端里执行如下命令再次开启这个提示框：
 
- <span class="comment"><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com<span class="class">.apple</span><span class="class">.dt</span><span class="class">.Xcode</span> DVTPlugInManagerNonApplePlugIns-Xcode-<span class="number">6.3</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure></span>
+<span class="comment"><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com<span class="class">.apple</span><span class="class">.dt</span><span class="class">.Xcode</span> DVTPlugInManagerNonApplePlugIns-Xcode-<span class="number">6.3</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure></span>
 </code></pre><p>在Xcode的<strong>Window</strong>菜单会出现一个名为<strong>Package Manager</strong>的新选项。制作Xcode插件要通过在<strong>Build Settings</strong>做诸多设置，并将Xcode依附到另一个Xcode实体上。幸运的是，<a href="witter.com/kattral">@kattrali</a>已经为你做了这些工作，并可通过模板创建插件。</p>
 <p>找到<strong>Window\Package Manager</strong>菜单，打开<strong>Alcatraz</strong>插件。在Alcatraz搜索框中，搜索<strong>Xcode Plugin</strong>。确保搜索窗口的<strong>All</strong>和<strong>Templates</strong>属性被选中。一旦找到Xcode的插件模板，点击它左边的安装按钮：<br><img src="http://cdn2.raywenderlich.com/wp-content/uploads/2015/05/XcodeAlcatrazPlugin-700x208.png" alt=""></p>
 <p>一旦Alcatraz下载插件完成，就可以通过菜单<strong>File\New\Project…</strong>创建新功能，选择新建<strong>OS X\Xcode Plugin\Xcode Plugin</strong>模板选项，并点击<strong>Next</strong>。<br><img src="http://cdn3.raywenderlich.com/wp-content/uploads/2015/05/XcodePluginSelection-480x282.png" alt=""><br>产品的名字设为“Rayrolling”，设置组织识别码为<strong>com.raywenderlich</strong>（这很重要），并选择<strong>Objective-C</strong>作为开发语言，保存工程到任何你想要的目录中。<br><img src="http://cdn1.raywenderlich.com/wp-content/uploads/2015/05/Plugin_Xcode_Setup-480x281.png" alt="">    </p>
