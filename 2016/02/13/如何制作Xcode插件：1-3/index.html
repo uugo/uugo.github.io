@@ -196,7 +196,7 @@ rm -r Rayrolling.xcplugin/
 <pre><code>注意：要知道<span class="keyword">*</span><span class="keyword">*</span>image lookup<span class="keyword">*</span><span class="keyword">*</span>的LLDB命令将列出内存中被执行的方法。当将此操作应用到一个特别的类上时，会忽略掉该类从其父类继承的方法。也就是说，该命令的搜索将忽略掉任何只在父类声明的方法，这些方法也不包括子类重载其父类的方法。
 </code></pre><p> LLDB控制台无输出时，以如下命令查看<strong>contentView</strong>属性：</p>
 <pre><code>(lldb) po [notification.<span class="keyword">object</span> controlView]
- &lt;<span class="keyword">nil</span>&amp;gt;
+ &lt;<span class="keyword">nil</span>&gt;
 </code></pre><p>控制台返回<strong>nil</strong>。讨厌。也许是因为<strong>controlView</strong>此时没有被赋值。是时候采取不同的策略了。<br><strong>initWithIcon:message:parentWindow:duration</strong>和<strong>initWithIcon:message:controlView:duration:</strong>看似有点<del>多汁</del>。因为你知道<strong>DVTBezelAlertPanel</strong>实体目前还在，所以一定是这两个傻呆呆的方法中的一个执行过。你需要通过LLDB控制台在这两个函数处设个断点，然后再次出发这个类的初始化。</p>
 <p>在程序暂停时，在LLDB控制台中输入以下命令：</p>
 <pre><code>(<span class="atom">lldb</span>) <span class="atom">rb</span> <span class="string">'DVTBezelAlertPanel\ initWithIcon:message:'</span>
