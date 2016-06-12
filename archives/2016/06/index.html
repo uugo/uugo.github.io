@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Welcome to Crafthm Site">
-    <title>all-categories - Welcome to Crafthm Site</title>
+    <title>Archives: 2016/6 - Welcome to Crafthm Site</title>
     <meta name="author" content="坦夫">
     
         <meta name="keywords" content="hexo,javascript,">
@@ -17,12 +17,12 @@
     
     <meta name="description">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="all-categories">
-<meta property="og:url" content="http://ieatapple.com/all-categories/index.html">
+<meta property="og:title" content="Welcome to Crafthm Site">
+<meta property="og:url" content="http://ieatapple.com/archives/2016/06/index.html">
 <meta property="og:site_name" content="Welcome to Crafthm Site">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="all-categories">
+<meta name="twitter:title" content="Welcome to Crafthm Site">
 <meta name="twitter:description">
     
     
@@ -171,47 +171,110 @@
                         hasCoverMetaIn
                         ">
                 
-<div id="categories-archives" class="main-content-wrap">
-    <form id="filter-form" action="##">
-        <input name="category" type="text" class="form-control input--xlarge"
-               placeholder="Search category" autofocus="autofocus">
-    </form>
-    <h5 class="archive-result text-color-base text-xlarge"
-        data-message-zero="no category found"
-        data-message-one="1 cartegory found"
-        data-message-other="{n} categories found"></h5>
+    
 
-        <section class="boxes">
+<section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/06/11/the-bugs-of-syntaxkit/">
+                            SyntaxKit的几个问题
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Jun 11 2016 16:33:00 GMT+0800">
+	
+		    Jun 11, 2016
+    	
+    </time>
+    
+        <span>in </span>
         
-            
-                <div><a href="#posts-list-无责任书评" class="category-anchor" data-category="无责任书评" data-parent-categories="">无责任书评</a></div>
-            
-        
-            
-                <div><a href="#posts-list-软件探索录" class="category-anchor" data-category="软件探索录" data-parent-categories="">软件探索录</a></div>
-            
-        
-            
-                <div><a href="#posts-list-透过电影看世界" class="category-anchor" data-category="透过电影看世界" data-parent-categories="">透过电影看世界</a></div>
-            
-        
-    </section>
-    <section class="boxes">
-        
-            
-                    <div id="posts-list-无责任书评" class="archive box" data-category="无责任书评" data-parent-categories=""><h4 class="archive-title text-xlarge"><a class="link-unstyled" href="/categories/无责任书评/">无责任书评 (1)</a></h4><ul class="archive-posts"><li class="archive-post"><a class="archive-post-title" href="/2016/06/10/the-human-skin-analects/">“铁肩担道义，辣手著文章”——小说《人皮论语》推荐</a><span class="archive-post-date"> - Jun 10, 2016</span></li></ul></div>
-            
-        
-            
-                    <div id="posts-list-软件探索录" class="archive box" data-category="软件探索录" data-parent-categories=""><h4 class="archive-title text-xlarge"><a class="link-unstyled" href="/categories/软件探索录/">软件探索录 (2)</a></h4><ul class="archive-posts"><li class="archive-post"><a class="archive-post-title" href="/2016/02/13/creating-an-xcode-plugin-part-1/">如何制作Xcode插件：1/3</a><span class="archive-post-date"> - Feb 13, 2016</span></li><li class="archive-post"><a class="archive-post-title" href="/2016/06/11/the-bugs-of-syntaxkit/">SyntaxKit的几个问题</a><span class="archive-post-date"> - Jun 11, 2016</span></li></ul></div>
-            
-        
-            
-                    <div id="posts-list-透过电影看世界" class="archive box" data-category="透过电影看世界" data-parent-categories=""><h4 class="archive-title text-xlarge"><a class="link-unstyled" href="/categories/透过电影看世界/">透过电影看世界 (1)</a></h4><ul class="archive-posts"><li class="archive-post"><a class="archive-post-title" href="/2016/05/18/chaffy-dish-hero/">《火锅英雄》的“自来水”需知的重庆防空洞黑色历史</a><span class="archive-post-date"> - May 18, 2016</span></li></ul></div>
-            
-        
-    </section>
+    <a class="category-link" href="/categories/软件探索录/">软件探索录</a>
+
+
+    
 </div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>在写一个xcBuddy App的过程中，需要一个给代码着色的ios库，试用了Github 里若干款，目前能找到的最好的是<a href="https://github.com/soffes/SyntaxKit">SyntaxKit</a>，用Swift语言编写，通过解析tmLanguage和tmTheme这两个标准的xml文件，将解析结果应用到代码着色上，TextMate和sublime均可以加载这两种文件，灵活度很高。</p>
+<p>tmLanguage文件定义了该语言需着色的关键字及正则表达式，tmTheme文件则是定义了代码着色方案，大体思路是通过到tmLanguage去匹配需要着色的文字，然后到tmTheme文件去找着色方案，输出NSAttributedString。</p>
+                    
+                        <a href="/2016/06/11/the-bugs-of-syntaxkit/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/06/10/the-human-skin-analects/">
+                            “铁肩担道义，辣手著文章”——小说《人皮论语》推荐
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Fri Jun 10 2016 19:33:00 GMT+0800">
+	
+		    Jun 10, 2016
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/无责任书评/">无责任书评</a>
+
+
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-06-08-59668837_2.jpg" alt="论语"></p>
+<p>明明知道这只是一本小说，看完之后仍久久不能从惨烈的结局中自拔，讲的是两大男主：史官司马迁和游侠朱安世，为了自己心里的道，面对朝廷的阴谋陷害，面对酷吏和皇家刺客的联合绞杀，不畏皇权拯救唯一一份孔壁《论语》的故事，通篇史料考证准确、情节荡气回肠、人物刻画入微、悬疑性很强，即使你认为你能猜得中结尾，结尾却更甚之，同时留有巨大的反思空间，好看。</p>
+<p>其中的人物<br>文有：司马迁、柳夫人、卫真、<br>侠有：朱安世、孔驩、韩嬉、郦袖、樊仲子、赵王孙、郭公仲、阿绣<br>反派：杜周、咸宣、吕步舒、汉武帝</p>
+<p>这些人千年之后，均烟消云散，唯《论语》留存下来，它是把钥匙，还是把绳索，能否让这个世界深处于无穷黑夜之中，黑穹之下只有点点星火，然而这固然可怕，更可怕的是并非身处黑夜，而是在青天白日、朗朗乾坤之下，有无数无形的线牵制着无数受人操纵的傀儡，他们遵守的受人摆布的道德，行走在别人划定的圈圈里。</p>
+<p>《论语》对统治国家有那么大的影响吗？</p>
+                    
+                        <a href="/2016/06/10/the-human-skin-analects/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
+        
+        
+        <li class="pagination-number">page 1 of 1</li>
+    </ul>
+</div>
+
+</section>
+
+
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
