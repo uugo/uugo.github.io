@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ieatapple.com/"/>
-  <updated>2016-06-12T03:01:48.000Z</updated>
+  <updated>2016-06-12T03:02:15.000Z</updated>
   <id>http://ieatapple.com/</id>
   
   <author>
@@ -14,47 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>SyntaxKit的几个问题</title>
-    <link href="http://ieatapple.com/2016/06/11/the-bugs-of-syntaxkit/"/>
-    <id>http://ieatapple.com/2016/06/11/the-bugs-of-syntaxkit/</id>
-    <published>2016-06-11T08:33:00.000Z</published>
-    <updated>2016-06-12T03:01:48.000Z</updated>
-    
-    <content type="html">&lt;p&gt;在写一个xcBuddy App的过程中，需要一个给代码着色的ios库，试用了Github 里若干款，目前能找到的最好的是&lt;a href=&quot;https://github.com/soffes/SyntaxKit&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SyntaxKit&lt;/a&gt;，用Swift语言编写，通过解析tmLanguage和tmTheme这两个标准的xml文件，将解析结果应用到代码着色上，TextMate和sublime均可以加载这两种文件，灵活度很高。&lt;/p&gt;
-&lt;p&gt;tmLanguage文件定义了该语言需着色的关键字及正则表达式，tmTheme文件则是定义了代码着色方案，大体思路是通过到tmLanguage去匹配需要着色的文字，然后到tmTheme文件去找着色方案，输出NSAttributedString。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;具体来说是，tmLanguage文件内容结构，分patterns和respository两大部分，pattern定义了一个解析序列，具体解析方案定义在respository里面，包含了大量的正则表达式、结构，甚至会再嵌套子patterns和子respository,先将代码字符串读进来，遍历tmLanguage文件的patterns部分，遍历过程中会到respository去做文字匹配，如果匹配成功，就会到tmTheme中去找相应的代码着色方案，将之转换为attributedText插入到代码字符串，然后结束本次遍历，解析接下来的字符串，直到最后。&lt;/p&gt;
-&lt;p&gt;该库设计理念基本适用于解析这两个文件需求，问题是太不成熟，缺乏大量的调试和测试，Github上的若干tmLanguage库解析结果着色不全，较为复杂的tmLanguage文件结构解析在代码中也没有体现，尤其对于respository里面又包含patterns和respository的情况没有考虑。&lt;/p&gt;
-&lt;p&gt;现主要做了三点更改：&lt;br&gt;language类和pattern类结构引入了respository字典，基于两点考虑，一是代码简洁便于查找respository，二是如果文件有更为复杂的pattern包含关系，也可应付，；&lt;br&gt;parser类解析过程问题主要有两点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;整行解析例如：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;func&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;functionname&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt; &amp;#123; ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;override 为keyword正则表达式所匹配，func是declaration正则所匹配，库顺序匹配，如果tmLanguage文件中的declaration正则在前，ovveride就得不到匹配被忽略；&lt;/p&gt;
-&lt;p&gt;2、对于基本的跨行注释符也没有处理：&lt;/p&gt;
-&lt;figure class=&quot;highlight gherkin&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt; long comment&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;类似跨多行的匹配均没有处理过程；&lt;/p&gt;
-&lt;p&gt;3、对tmLanguage文件中pattern里又嵌套pattern的模型没有处理，导致一些在第一层pattern可以部分匹配，需要到嵌套的pattern里完全匹配的情况，无法正常解析。&lt;/p&gt;
-&lt;p&gt;以上问题，更改后，仅针对swift代码文件做的测试，代码着色基本差不多，解析效率也比较低，解析过程上做了些优化，还是不理想，虽可以通过异步的方式，和将着色完成的NSAttrbutedString存文件，再打开时载入它，提高体验，但是在之后做实时输入着色的时候，效率也是堪忧。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在写一个xcBuddy App的过程中，需要一个给代码着色的ios库，试用了Github 里若干款，目前能找到的最好的是&lt;a href=&quot;https://github.com/soffes/SyntaxKit&quot;&gt;SyntaxKit&lt;/a&gt;，用Swift语言编写，通过解析tmLanguage和tmTheme这两个标准的xml文件，将解析结果应用到代码着色上，TextMate和sublime均可以加载这两种文件，灵活度很高。&lt;/p&gt;
-&lt;p&gt;tmLanguage文件定义了该语言需着色的关键字及正则表达式，tmTheme文件则是定义了代码着色方案，大体思路是通过到tmLanguage去匹配需要着色的文字，然后到tmTheme文件去找着色方案，输出NSAttributedString。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="软件探索录" scheme="http://ieatapple.com/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A2%E7%B4%A2%E5%BD%95/"/>
-    
-    
-      <category term="SyntaxKit" scheme="http://ieatapple.com/tags/SyntaxKit/"/>
-    
-      <category term="ios" scheme="http://ieatapple.com/tags/ios/"/>
-    
-  </entry>
   
   <entry>
     <title>“铁肩担道义，辣手著文章”——小说《人皮论语》推荐</title>
@@ -111,6 +70,47 @@
       <category term="冶文彪" scheme="http://ieatapple.com/tags/%E5%86%B6%E6%96%87%E5%BD%AA/"/>
     
       <category term="历史小说" scheme="http://ieatapple.com/tags/%E5%8E%86%E5%8F%B2%E5%B0%8F%E8%AF%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SyntaxKit的几个问题</title>
+    <link href="http://ieatapple.com/2016/05/23/the-bugs-of-syntaxkit/"/>
+    <id>http://ieatapple.com/2016/05/23/the-bugs-of-syntaxkit/</id>
+    <published>2016-05-23T08:33:00.000Z</published>
+    <updated>2016-06-12T03:06:01.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在写一个xcBuddy App的过程中，需要一个给代码着色的ios库，试用了Github 里若干款，目前能找到的最好的是&lt;a href=&quot;https://github.com/soffes/SyntaxKit&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SyntaxKit&lt;/a&gt;，用Swift语言编写，通过解析tmLanguage和tmTheme这两个标准的xml文件，将解析结果应用到代码着色上，TextMate和sublime均可以加载这两种文件，灵活度很高。&lt;/p&gt;
+&lt;p&gt;tmLanguage文件定义了该语言需着色的关键字及正则表达式，tmTheme文件则是定义了代码着色方案，大体思路是通过到tmLanguage去匹配需要着色的文字，然后到tmTheme文件去找着色方案，输出NSAttributedString。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;具体来说是，tmLanguage文件内容结构，分patterns和respository两大部分，pattern定义了一个解析序列，具体解析方案定义在respository里面，包含了大量的正则表达式、结构，甚至会再嵌套子patterns和子respository,先将代码字符串读进来，遍历tmLanguage文件的patterns部分，遍历过程中会到respository去做文字匹配，如果匹配成功，就会到tmTheme中去找相应的代码着色方案，将之转换为attributedText插入到代码字符串，然后结束本次遍历，解析接下来的字符串，直到最后。&lt;/p&gt;
+&lt;p&gt;该库设计理念基本适用于解析这两个文件需求，问题是太不成熟，缺乏大量的调试和测试，Github上的若干tmLanguage库解析结果着色不全，较为复杂的tmLanguage文件结构解析在代码中也没有体现，尤其对于respository里面又包含patterns和respository的情况没有考虑。&lt;/p&gt;
+&lt;p&gt;现主要做了三点更改：&lt;br&gt;language类和pattern类结构引入了respository字典，基于两点考虑，一是代码简洁便于查找respository，二是如果文件有更为复杂的pattern包含关系，也可应付，；&lt;br&gt;parser类解析过程问题主要有两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;整行解析例如：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;func&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;functionname&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt; &amp;#123; ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;override 为keyword正则表达式所匹配，func是declaration正则所匹配，库顺序匹配，如果tmLanguage文件中的declaration正则在前，ovveride就得不到匹配被忽略；&lt;/p&gt;
+&lt;p&gt;2、对于基本的跨行注释符也没有处理：&lt;/p&gt;
+&lt;figure class=&quot;highlight gherkin&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt; long comment&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;*&lt;/span&gt;/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;类似跨多行的匹配均没有处理过程；&lt;/p&gt;
+&lt;p&gt;3、对tmLanguage文件中pattern里又嵌套pattern的模型没有处理，导致一些在第一层pattern可以部分匹配，需要到嵌套的pattern里完全匹配的情况，无法正常解析。&lt;/p&gt;
+&lt;p&gt;以上问题，更改后，仅针对swift代码文件做的测试，代码着色基本差不多，解析效率也比较低，解析过程上做了些优化，还是不理想，虽可以通过异步的方式，和将着色完成的NSAttrbutedString存文件，再打开时载入它，提高体验，但是在之后做实时输入着色的时候，效率也是堪忧。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在写一个xcBuddy App的过程中，需要一个给代码着色的ios库，试用了Github 里若干款，目前能找到的最好的是&lt;a href=&quot;https://github.com/soffes/SyntaxKit&quot;&gt;SyntaxKit&lt;/a&gt;，用Swift语言编写，通过解析tmLanguage和tmTheme这两个标准的xml文件，将解析结果应用到代码着色上，TextMate和sublime均可以加载这两种文件，灵活度很高。&lt;/p&gt;
+&lt;p&gt;tmLanguage文件定义了该语言需着色的关键字及正则表达式，tmTheme文件则是定义了代码着色方案，大体思路是通过到tmLanguage去匹配需要着色的文字，然后到tmTheme文件去找着色方案，输出NSAttributedString。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="软件探索录" scheme="http://ieatapple.com/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A2%E7%B4%A2%E5%BD%95/"/>
+    
+    
+      <category term="SyntaxKit" scheme="http://ieatapple.com/tags/SyntaxKit/"/>
+    
+      <category term="ios" scheme="http://ieatapple.com/tags/ios/"/>
     
   </entry>
   
