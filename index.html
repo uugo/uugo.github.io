@@ -113,7 +113,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/SyntaxKit/" style="font-size: 10px;">SyntaxKit</a><a href="/tags/ios/" style="font-size: 10px;">ios</a><a href="/tags/plugin/" style="font-size: 10px;">plugin</a><a href="/tags/xcode/" style="font-size: 10px;">xcode</a><a href="/tags/人皮论语/" style="font-size: 10px;">人皮论语</a><a href="/tags/冶文彪/" style="font-size: 10px;">冶文彪</a><a href="/tags/历史小说/" style="font-size: 10px;">历史小说</a><a href="/tags/燃情主厨/" style="font-size: 10px;">燃情主厨</a><a href="/tags/电影/" style="font-size: 20px;">电影</a>
+						<a href="/tags/SyntaxKit/" style="font-size: 10px;">SyntaxKit</a><a href="/tags/ios/" style="font-size: 10px;">ios</a><a href="/tags/plugin/" style="font-size: 10px;">plugin</a><a href="/tags/xcBuddy/" style="font-size: 10px;">xcBuddy</a><a href="/tags/xcode/" style="font-size: 10px;">xcode</a><a href="/tags/人皮论语/" style="font-size: 10px;">人皮论语</a><a href="/tags/冶文彪/" style="font-size: 10px;">冶文彪</a><a href="/tags/历史小说/" style="font-size: 10px;">历史小说</a><a href="/tags/燃情主厨/" style="font-size: 10px;">燃情主厨</a><a href="/tags/电影/" style="font-size: 20px;">电影</a>
 					</div>
 				</section>
 				
@@ -184,6 +184,132 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-introducing_xcBuddy_for_ios" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/16/introducing_xcBuddy_for_ios/" class="article-date">
+  	<time datetime="2016-08-16T14:57:00.000Z" itemprop="datePublished">2016-08-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/16/introducing_xcBuddy_for_ios/">Introducing xcBuddy for ios</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Introducing_xcBuddy_for_ios">Introducing xcBuddy for ios</h1><p>Xcode can interact with ipad by <code>XcodeBuddy plugin</code>.</p>
+<p><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-usage.png" alt="usage"></p>
+<p>XcBuddy App  running on ios devices is not only an independent source view and analysis tool, but also a client  attached to the Xcode. You can connect to <code>xcBuddy</code> app and operate it with <code>XcodeBuddy Plugin</code>.</p>
+<h2 id="Current_Version">Current Version</h2><p>v1.0</p>
+<h2 id="Features">Features</h2><ul>
+<li>File tree——“Similar to Project Navigator of Xcode” , and will provide more source code analysis functions. </li>
+<li>Source code syntax highlighting, and will support more languages.</li>
+<li>Operate ios device with Xcode,the Gospel of extreme fast keyboarder,and will suppport more operations.</li>
+</ul>
+<h2 id="Requirements">Requirements</h2><ol>
+<li>XcodeBuddyPlugin for Xcode,<a href="(https://github.com/uugo/XcodeBuddyPlugin">installation method</a>).</li>
+<li>xcBuddy for ios,running on ios platform.</li>
+</ol>
+<h2 id="Way_Of_Connection">Way Of Connection</h2><p>Wi-Fi</p>
+<h2 id="Supported_language">Supported language</h2><p>objective-c、objective-c++、swift、C、C++</p>
+<h2 id="Code_Transmission">Code Transmission</h2><p>Two methods:</p>
+<h3 id="Using_XcodeBuddy_Plugin">Using XcodeBuddy Plugin</h3><ol>
+<li>Ensure the connection of <code>xcBuddy</code> app and <code>XcodeBuddy plugin</code>.</li>
+<li>In xcode,click the menu of <code>Edit</code>-&gt;<code>XcodeBuddy</code>-&gt;<code>Send All Project Files</code>，and click <code>Send</code> button.</li>
+</ol>
+<h3 id="USB_Data_Line">USB Data Line</h3><ol>
+<li>Connect the computer to the ipad with USB data line.</li>
+<li>Run <code>iTunes</code>, and select the tab of <code>Apps</code>.</li>
+<li>Select <code>xcBuddy</code> in the <code>Apps</code> list of <code>File Sharing</code>,drag and drop the code directory into the right list,or click the <code>Add</code> button bottom.</li>
+</ol>
+<h2 id="Source_Files_Tree">Source Files Tree</h2><h3 id="Add_Projects">Add Projects</h3><ol>
+<li>click <code>+</code> button in xcBuddy app, and projects list pops up from the bottom. </li>
+<li>select projects what you want to add from the list,and click the <code>Done</code> button.</li>
+</ol>
+<h3 id="Delete_Project_Reference">Delete Project Reference</h3><p><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-屏幕快照 2016-07-11 11.16.00.png" alt="屏幕快照 2016-07-11 11.16.00"></p>
+<p>Long press on the project icon you want to delete,and click the <code>Delete</code> .<br>Tips:  Click here to remove the project reference.You cannot remove the project files.</p>
+<h3 id="Delete_Project_Files">Delete Project Files</h3><ol>
+<li>Click <code>+</code> button in xcBuddy app, and projects list pops up from the bottom. </li>
+<li>Select projects what you want to delete from the list, and click the delete button.</li>
+</ol>
+<h2 id="Interaction_between_‘xcBuddy’_app_and_‘XcodeBuddy’_plugin">Interaction between ‘xcBuddy’ app and ‘XcodeBuddy’ plugin</h2><p>The most of interaction functions is showed up in the ‘Edit’ menu of Xcode ,as follows:<br><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-屏幕快照 2016-07-04 17.33.37.png" alt="屏幕快照 2016-07-04 17.33.37"></p>
+<ul>
+<li><p>Connect<br>The status bar show the IP address of the ios device in your LAN at the bottom of ‘xcBuddy’ app,as follows:<br><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-屏幕快照 2016-07-04 17.36.28.png" alt="屏幕快照 2016-07-04 17.36.28"><br>Click the <code>Connect</code> menu item in the <code>XcodeBuddy</code> menu of Xcode,will show:<br><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-屏幕快照 2016-07-04 17.48.12.png" alt="屏幕快照 2016-07-04 17.48.12"><br>input the IP address and port number of your ios device, and click the <code>Connect</code> button.The connected icon will change to <img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-Connected-40.png" alt="Connected-40"> on the xcBuddy app.<br>Tip: The ‘XcodeBuddy’ menu shows up  IP addresses of the most-recently connected ios devices.</p>
+</li>
+<li><p>Send All Project Files<br>Send all the project files to ‘xcBuddy’ app.</p>
+</li>
+<li>Disconnect<br>Disconnect ‘xcBuddy’ app from the network. </li>
+<li>Help<br>Show the version number and the installation help of plugin.</li>
+<li>Open With xcBuddy<br><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-屏幕快照 2016-07-11 11.02.31.png" alt="屏幕快照 2016-07-11 11.02.31"><br>Right click on the source file in the ‘Project Navigator’ of Xcode, and locate the menu item named ‘Open With xcBuddy’ in the right mouse context menu.Click it, and the file will be sended to and show in ‘xcBuddy’ app.</li>
+</ul>
+<h2 id="Switch_Of_Locking_Screen">Switch Of Locking Screen</h2><table>
+<thead>
+<tr>
+<th><img src="http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-屏幕快照 2016-07-11 10.48.57.png" alt="屏幕快照 2016-07-11 10.48.57"></th>
+<th>Click this button in the top right corner, and click the menu item named ‘Lock Screen’.It can shut down or open up the system function of locking screen automatically.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Next_version">Next version</h2><p>v1.2</p>
+<h2 id="Will_Provide">Will Provide</h2><ul>
+<li>can download and use the code theme files of Xcode in ‘xcBuddy’ app.</li>
+<li>can config fonts and font-size.</li>
+<li>can use groups of Xcode in ‘xcBuddy’ app.</li>
+<li>more perfect code highlighting.</li>
+<li>will provide the function of feedback.</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xcBuddy/">xcBuddy</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/软件探索录/">软件探索录</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+ 
+
   
     <article id="post-the-Burnt-part1" class="article article-type-post" itemscope itemprop="blogPost">
   
