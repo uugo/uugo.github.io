@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ieatapple.com/"/>
-  <updated>2016-08-16T15:09:33.000Z</updated>
+  <updated>2016-08-16T15:15:28.000Z</updated>
   <id>http://ieatapple.com/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Introducing xcBuddy for ios</title>
-    <link href="http://ieatapple.com/2016/08/16/introducing_xcBuddy_for_ios/"/>
-    <id>http://ieatapple.com/2016/08/16/introducing_xcBuddy_for_ios/</id>
+    <link href="http://ieatapple.com/2016/08/16/introducing_xcBuddy_for_ios.html/"/>
+    <id>http://ieatapple.com/2016/08/16/introducing_xcBuddy_for_ios.html/</id>
     <published>2016-08-16T14:57:00.000Z</published>
-    <updated>2016-08-16T15:09:33.000Z</updated>
+    <updated>2016-08-16T15:15:28.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;Introducing_xcBuddy_for_ios&quot;&gt;Introducing xcBuddy for ios&lt;/h1&gt;&lt;p&gt;Xcode can interact with ipad by &lt;code&gt;XcodeBuddy plugin&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-usage.png&quot; alt=&quot;usage&quot;&gt;&lt;/p&gt;
@@ -33,7 +33,7 @@
 &lt;li&gt;Operate ios device with Xcode,the Gospel of extreme fast keyboarder,and will suppport more operations.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;Requirements&quot;&gt;Requirements&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;XcodeBuddyPlugin for Xcode,&lt;a href=&quot;(https://github.com/uugo/XcodeBuddyPlugin&quot;&gt;installation method&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;XcodeBuddyPlugin for Xcode,&lt;a href=&quot;https://github.com/uugo/XcodeBuddyPlugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;installation method&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;xcBuddy for ios,running on ios platform.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;Way_Of_Connection&quot;&gt;Way Of Connection&lt;/h2&gt;&lt;p&gt;Wi-Fi&lt;/p&gt;
