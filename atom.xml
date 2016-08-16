@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ieatapple.com/"/>
-  <updated>2016-08-16T15:06:23.000Z</updated>
+  <updated>2016-08-16T15:09:33.000Z</updated>
   <id>http://ieatapple.com/</id>
   
   <author>
@@ -20,11 +20,12 @@
     <link href="http://ieatapple.com/2016/08/16/introducing_xcBuddy_for_ios/"/>
     <id>http://ieatapple.com/2016/08/16/introducing_xcBuddy_for_ios/</id>
     <published>2016-08-16T14:57:00.000Z</published>
-    <updated>2016-08-16T15:06:23.000Z</updated>
+    <updated>2016-08-16T15:09:33.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;Introducing_xcBuddy_for_ios&quot;&gt;Introducing xcBuddy for ios&lt;/h1&gt;&lt;p&gt;Xcode can interact with ipad by &lt;code&gt;XcodeBuddy plugin&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-usage.png&quot; alt=&quot;usage&quot;&gt;&lt;/p&gt;
 &lt;p&gt;XcBuddy App  running on ios devices is not only an independent source view and analysis tool, but also a client  attached to the Xcode. You can connect to &lt;code&gt;xcBuddy&lt;/code&gt; app and operate it with &lt;code&gt;XcodeBuddy Plugin&lt;/code&gt;.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h2 id=&quot;Current_Version&quot;&gt;Current Version&lt;/h2&gt;&lt;p&gt;v1.0&lt;/p&gt;
 &lt;h2 id=&quot;Features&quot;&gt;Features&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;File tree——“Similar to Project Navigator of Xcode” , and will provide more source code analysis functions. &lt;/li&gt;
@@ -93,7 +94,8 @@
     <summary type="html">
     
       &lt;h1 id=&quot;Introducing_xcBuddy_for_ios&quot;&gt;Introducing xcBuddy for ios&lt;/h1&gt;&lt;p&gt;Xcode can interact with ipad by &lt;code&gt;XcodeBuddy plugin&lt;/code&gt;.&lt;/p&gt;
-
+&lt;p&gt;&lt;img src=&quot;http://7xqvso.com1.z0.glb.clouddn.com/2016-08-16-usage.png&quot; alt=&quot;usage&quot;&gt;&lt;/p&gt;
+&lt;p&gt;XcBuddy App  running on ios devices is not only an independent source view and analysis tool, but also a client  attached to the Xcode. You can connect to &lt;code&gt;xcBuddy&lt;/code&gt; app and operate it with &lt;code&gt;XcodeBuddy Plugin&lt;/code&gt;.&lt;/p&gt;
     
     </summary>
     
