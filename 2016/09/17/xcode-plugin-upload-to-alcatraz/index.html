@@ -4,17 +4,20 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>crafthm</title>
+  <title>自制Xcode插件alcatraz-packages上传过程 | crafthm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="404">
-<meta property="og:type" content="website">
-<meta property="og:title" content="crafthm">
-<meta property="og:url" content="http://ieatapple.com/404.html">
+  <meta name="description" content="Xcode的alcatraz插件是管理Xcode插件的利器，它的安装和使用方法在网上的资料很多，这篇文章主要介绍一下自己编写的Xcode插件如何加入到alcatraz的大家庭中，供其他开发者使用。
+假设你的Xcode Plugin已经编写完成，作为一个无私的分享者，你觉得自己写的东西对其他开发者有用，那就行动起来吧，按照下面的步骤：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自制Xcode插件alcatraz-packages上传过程">
+<meta property="og:url" content="http://ieatapple.com/2016/09/17/xcode-plugin-upload-to-alcatraz/index.html">
 <meta property="og:site_name" content="crafthm">
-<meta property="og:description" content="404">
+<meta property="og:description" content="Xcode的alcatraz插件是管理Xcode插件的利器，它的安装和使用方法在网上的资料很多，这篇文章主要介绍一下自己编写的Xcode插件如何加入到alcatraz的大家庭中，供其他开发者使用。
+假设你的Xcode Plugin已经编写完成，作为一个无私的分享者，你觉得自己写的东西对其他开发者有用，那就行动起来吧，按照下面的步骤：">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="crafthm">
-<meta name="twitter:description" content="404">
+<meta name="twitter:title" content="自制Xcode插件alcatraz-packages上传过程">
+<meta name="twitter:description" content="Xcode的alcatraz插件是管理Xcode插件的利器，它的安装和使用方法在网上的资料很多，这篇文章主要介绍一下自己编写的Xcode插件如何加入到alcatraz的大家庭中，供其他开发者使用。
+假设你的Xcode Plugin已经编写完成，作为一个无私的分享者，你觉得自己写的东西对其他开发者有用，那就行动起来吧，按照下面的步骤：">
   
     <link rel="alternative" href="/atom.xml" title="crafthm" type="application/atom+xml">
   
@@ -183,11 +186,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="default-undefined" class="article article-type-default" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-xcode-plugin-upload-to-alcatraz" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/404.html" class="article-date">
-  	<time datetime="2016-08-31T12:12:07.000Z" itemprop="datePublished">2016-08-31</time>
+      <a href="/2016/09/17/xcode-plugin-upload-to-alcatraz/" class="article-date">
+  	<time datetime="2016-09-17T12:07:00.000Z" itemprop="datePublished">2016-09-17</time>
 </a>
     </div>
   
@@ -196,23 +199,64 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自制Xcode插件alcatraz-packages上传过程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/软件探索录/">软件探索录</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <html>
-    <head>
-         <meta charset="UTF-8">
-         <title>404</title>                                                                                                                                        
-    </head>
-    <body>
-         <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>
-    </body>
-</html>
+        <p>Xcode的alcatraz插件是管理Xcode插件的利器，它的安装和使用方法在网上的资料很多，这篇文章主要介绍一下自己编写的Xcode插件如何加入到alcatraz的大家庭中，供其他开发者使用。</p>
+<p>假设你的Xcode Plugin已经编写完成，作为一个无私的分享者，你觉得自己写的东西对其他开发者有用，那就行动起来吧，按照下面的步骤：<br><a id="more"></a></p>
+<ol>
+<li>将自己的插件工程上传到github，记下该项目地址;</li>
+<li>找到<a href="www.github.com">github</a>中<a href="https://github.com/alcatraz/alcatraz-packages" target="_blank" rel="external">alcatraz-packages</a>的项目页面去fork（项目页面右上角按钮）到自己的账户中（当然，前提是您已经登录了github），并将fork后的项目同步到本地；</li>
+<li>编辑本地项目根目录中的packages.json文件，alcatraz-packages的readme文件写的很清楚，不过仍然要强调的是该文件包含<code>plugins</code>(插件)、<code>file_templates</code>(文件模板)、<code>color_schemes</code>(主题)和<code>project_templates</code>(工程模板)，确保插件信息填写到plugins的大括号里；</li>
+<li>在packages.json插件填写<code>name</code>,<code>url</code>,<code>description</code>,<code>screenshot</code>，这里注意<code>name</code>要与插件的工程名必须一样，记住是必须（不然，在package manager里无法安装）;</li>
+<li>在本地的alcatraz-packages目录下，用rspec命令校验一下package.json文件，无错后同步到github，并在github的该项目页面<code>pull request</code>，很快便会收到提交回复。</li>
+</ol>
+<p>提交通过后，在alcatraz-package的主项目页面的package.json文件会查到你编辑的内容。</p>
+<p>其他注意事项，如果上面三步没什么差错，在Xcode的package manager里<br>就应该出现自己的插件了，点击install可以安装，但是到插件目录下面发现插件大小为0，或者其他问题，有个方法，可以将该插件的源码同步到本地，然后用Xcode试着编译，编译出错也是有可能的，因为git客户端在同步工程文件时有问题，笔者在用Xcode的source control时就遇到这样的bug。</p>
+<p>如遇到这样的问题可以该插件源码目录下的<code>.git</code>目录删掉，重新上传，该目录为隐藏目录，mac系统默认不显示隐藏文件，可用如下命令让其现形：<br><code>defaults write com.apple.finder AppleShowAllFiles -bool true</code></p>
+<p>总之，确保两点，一是所编辑、上传的packages.json符合要求，二是自己插件的源码下载后可以顺利编译。</p>
+
       
     </div>
     
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/09/NetFlix/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -242,7 +286,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="" data-url="http://ieatapple.com/404.html"></div>
+	<div class="ds-thread" data-thread-key="xcode-plugin-upload-to-alcatraz" data-title="自制Xcode插件alcatraz-packages上传过程" data-url="http://ieatapple.com/2016/09/17/xcode-plugin-upload-to-alcatraz/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -286,7 +330,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
